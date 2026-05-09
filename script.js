@@ -74,12 +74,14 @@ let smileHoldStart = 0;
 const HOLD_THUMB_MS = 5000;
 let holdGesture = null;
 let holdStart = 0;
+
 //ве калибровкиииииииииииии
 let lastJoy = 0;
 let joyBuf = [];
 const JOY_SMOOTH_N = 8;
 const CALIB_MS = 2000;
 let calibStart = 0;
+
 //нейтралки
 let neutralCalib = {
   startedAt: 0,
@@ -87,6 +89,7 @@ let neutralCalib = {
   mouthWNorm: 0,
   cornerLift: 0
 };
+
 function resetNeutralCalib() {
   neutralCalib = {
     startedAt: 0,
@@ -95,8 +98,10 @@ function resetNeutralCalib() {
     cornerLift: 0
   };
 }
+
 //зад(ница)
 let floaterTimer = null;
+
 function spawnFloater() {
   const el = document.createElement("div");
   el.className = "floater";
@@ -108,6 +113,7 @@ function spawnFloater() {
   document.body.appendChild(el);
   el.addEventListener("animationend", () => el.remove());
 }
+
 function startFloaters() {
   if (floaterTimer) return;
   for (let i = 0; i < 8; i++) setTimeout(spawnFloater, i * 180);
@@ -119,11 +125,12 @@ function startFloaters() {
 
 // юткб
 let ytBtn = null;
+
 function ensureYTButton() {
   if (ytBtn) return ytBtn;
 
   ytBtn = document.createElement("button");
-  ytBtn.textContent = "Смотреть видео 💖";
+  ytBtn.textContent = "Watch video 💖";
   ytBtn.className = "ytBtn";
 
   ytBtn.addEventListener("click", () => {
@@ -138,6 +145,7 @@ function ensureYTButton() {
   document.body.appendChild(ytBtn);
   return ytBtn;
 }
+
 //дурочкаэто оне трогай это не батон
 function showYTButton() {
   // если ссылка пустая — не показываем
@@ -145,10 +153,12 @@ function showYTButton() {
   const b = ensureYTButton();
   b.style.display = "block";
 }
+
 function hideYTButton() {
   if (!ytBtn) return;
   ytBtn.style.display = "none";
 }
+
 //
 function showCard(img, text) {
   if (!card) return;
@@ -156,15 +166,18 @@ function showCard(img, text) {
   if (cardImg) cardImg.src = img || "";
   if (cardText) cardText.textContent = text || "";
 }
+
 function hideCard() {
   if (!card) return;
   card.classList.add("hidden");
 }
+
 function showSnap(dataUrl) {
   if (!snapWrap || !snapImg) return;
   snapWrap.classList.remove("hidden");
   snapImg.src = dataUrl;
 }
+
 function hideSnap() {
   if (!snapWrap || !snapImg) return;
   snapWrap.classList.add("hidden");
@@ -179,9 +192,10 @@ function resetHold() {
     holdFill.style.background =
       "linear-gradient(90deg, #ff4d6d, #ffd166, #06d6a0, #4d96ff)";
   }
-  if (holdLabel) holdLabel.textContent = "Держи…";
+  if (holdLabel) holdLabel.textContent = "Hold…";
   if (holdBox) holdBox.classList.add("hidden");
 }
+
 function updateHoldUI(label, pct) {
   if (!holdBox || !holdFill || !holdLabel) return;
   holdBox.classList.remove("hidden");
@@ -194,7 +208,7 @@ function updateHoldUI(label, pct) {
 
 //UI states 
 function setHelloUI() {
-  titleEl.textContent = "Привет! 👋";
+  titleEl.textContent = "Hi! 👋";
   subtitleEl.textContent = "";
   bigNumberEl.classList.add("hidden");
   hideCard();
@@ -202,38 +216,43 @@ function setHelloUI() {
   resetHold();
   hideYTButton();
 }
+
 function setCalibUI(pct = 0) {
-  titleEl.textContent = "Секундочку…";
-  subtitleEl.textContent = "Держи лицо в кадре и НЕ улыбайся 🙂 Калибровка…";
+  titleEl.textContent = "One second…";
+  subtitleEl.textContent = "Keep your face in the frame and do NOT smile 🙂 Calibrating…";
   bigNumberEl.classList.add("hidden");
   hideCard();
   hideSnap();
-  updateHoldUI("Калибрую нейтральное лицо…", pct);
+  updateHoldUI("Calibrating neutral face…", pct);
 }
+
 function setEmoUI() {
-  titleEl.textContent = "Считываю эмоцию…";
-  subtitleEl.textContent = "Почти готово 🙂";
+  titleEl.textContent = "Reading emotion…";
+  subtitleEl.textContent = "Almost ready 🙂";
   bigNumberEl.classList.add("hidden");
   hideCard();
   hideSnap();
   resetHold();
 }
+
 function setSmileHoldUI() {
-  titleEl.textContent = "Улыбнись 😄 и че светишься то так...";
-  subtitleEl.textContent = `Радостное счастье: ${Math.round(lastJoy)}%`;
+  titleEl.textContent = "Smile 😄 why are you glowing like that...";
+  subtitleEl.textContent = `Happiness level: ${Math.round(lastJoy)}%`;
   bigNumberEl.classList.add("hidden");
   hideCard();
 }
+
 function setImportantUI() {
-  titleEl.textContent = "Зачем? 😳";
-  subtitleEl.textContent = "У меня к тебе важный вопрос…";
+  titleEl.textContent = "Why? 😳";
+  subtitleEl.textContent = "I have an important question for you…";
   bigNumberEl.classList.add("hidden");
   hideCard();
   resetHold();
 }
+
 function setCountdownUI() {
-  titleEl.textContent = "Назад считать умеем?!";
-  subtitleEl.textContent = "Покажи пальчиками своими чудными число 5 → 1";
+  titleEl.textContent = "Can you count backwards?!";
+  subtitleEl.textContent = "Show the numbers 5 → 1 with your lovely fingers";
   bigNumberEl.classList.remove("hidden");
   bigNumberEl.textContent = String(expected);
   resetHold();
@@ -241,30 +260,34 @@ function setCountdownUI() {
   if (ASSETS.countdownImg) showCard(ASSETS.countdownImg, "");
   else hideCard();
 }
+
 function setFistUI() {
-  titleEl.textContent = "Кулаааак! сила брат могила";
-  subtitleEl.textContent = "Сожми руку в кулак ✊ (0 пальцев пж)";
+  titleEl.textContent = "Fiiist! power move";
+  subtitleEl.textContent = "Make a fist ✊ (0 fingers please)";
   bigNumberEl.classList.remove("hidden");
   bigNumberEl.textContent = "✊";
   resetHold();
 }
+
 function setValentineUI() {
   titleEl.textContent = "💘";
   subtitleEl.textContent = "";
   bigNumberEl.classList.add("hidden");
   resetHold();
-  if (ASSETS.valentineImg) showCard(ASSETS.valentineImg, "Ты будешь моей валентинкой???????");
-  else showCard("", "Ты будешь моей валентинкой????");
+  if (ASSETS.valentineImg) showCard(ASSETS.valentineImg, "Will you be my valentine???????");
+  else showCard("", "Will you be my valentine????");
 }
+
 function setThumbUI() {
   titleEl.textContent = "💘";
-  subtitleEl.textContent = "Покажи 👍 или 👎 и подержии(если не детектится,поднеси поближе)";
+  subtitleEl.textContent = "Show 👍 or 👎 and hold it (if it is not detected, move closer)";
   bigNumberEl.classList.add("hidden");
   resetHold();
 }
+
 function setYayUI({ keepSnapshot = false } = {}) {
-  titleEl.textContent = "УРААА 🎉";
-  subtitleEl.textContent = "люблюILOVEYOUлюблюIILOVEYOUUUлюблю тебя!!!";
+  titleEl.textContent = "YAAAY 🎉";
+  subtitleEl.textContent = "love you I LOVE YOU love you I LOVE YOUUU love you!!!";
   bigNumberEl.classList.add("hidden");
   resetHold();
   if (!keepSnapshot) hideSnap();
@@ -308,6 +331,7 @@ function countFingers(lm) {
   if (Math.abs(lm[4].x - lm[3].x) > 0.04) count++;
   return Math.max(0, Math.min(5, count));
 }
+
 function detectThumb(lm) {
   const wrist = lm[0];
   const thumbTip = lm[4];
@@ -343,6 +367,7 @@ function snapshot180() {
 function dist(a, b) {
   return Math.hypot(a.x - b.x, a.y - b.y);
 }
+
 function calcSmilePercent(faceLm) {
   const L = faceLm[61];
   const R = faceLm[291];
@@ -368,6 +393,7 @@ function calcSmilePercent(faceLm) {
   const pct = Math.max(0, Math.min(1, score)) * 100;
   return pct;
 }
+
 function smoothJoy(v) {
   joyBuf.push(v);
   if (joyBuf.length > JOY_SMOOTH_N) joyBuf.shift();
@@ -388,6 +414,7 @@ const canDraw =
 const hands = new Hands({
   locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`
 });
+
 hands.setOptions({
   maxNumHands: 1,
   modelComplexity: 0,  // iPad 5 gen спс
@@ -398,6 +425,7 @@ hands.setOptions({
 const faceMesh = new FaceMesh({
   locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}`
 });
+
 faceMesh.setOptions({
   maxNumFaces: 1,
   refineLandmarks: false, // важно для старых iPad
@@ -416,6 +444,7 @@ hands.onResults((res) => {
   lastHandResults = res;
   if (res?.multiHandLandmarks?.[0]) gotFirstHand = true;
 });
+
 faceMesh.onResults((res) => {
   lastFaceResults = res;
   if (res?.multiFaceLandmarks?.[0]) gotFirstFace = true;
@@ -448,6 +477,7 @@ function updateEyeHearts(faceLm) {
     eyeR.style.opacity = "0";
     return;
   }
+
   eyeL.style.opacity = "0.98";
   eyeR.style.opacity = "0.98";
 
@@ -533,12 +563,14 @@ function startRingsFollowLoop() {
     if (ringVideo) layoutHeartRing(ringVideo);
     if (ringSnap) layoutHeartRing(ringSnap);
   };
+
   ringFollowRAF = requestAnimationFrame(tick);
 
   const relayout = () => {
     if (ringVideo) layoutHeartRing(ringVideo);
     if (ringSnap) layoutHeartRing(ringSnap);
   };
+
   window.addEventListener("resize", relayout, { passive: true });
   window.addEventListener("scroll", relayout, { passive: true });
 }
@@ -563,12 +595,13 @@ function startFinalHearts({ withSnap = false } = {}) {
   if (withSnap && snapImg) {
     ringSnap = createHeartRingAroundElement(snapImg, { count: 54, padding: 24, spin: true });
   }
+
   startRingsFollowLoop();
 }
 
 // ---------- TAP HAMSTERS 🐹 ----------
-const TAP_EMOJIS = ["🐹","🐹","🐾","✨","💖"];
-const TAP_TEXTS  = ["52!", "тапай тап тап!", "лох", "🥹кто прочитал тот лох", "💘"];
+const TAP_EMOJIS = ["🐹", "🐹", "🐾", "✨", "💖"];
+const TAP_TEXTS = ["52!", "tap tap tap!", "dummy", "who read this is silly", "💘"];
 
 function spawnHamster(x, y) {
   const el = document.createElement("div");
@@ -696,18 +729,18 @@ function renderAndLogic() {
     setSmileHoldUI();
 
     if (!faceLm && !faceRecently) {
-      updateHoldUI("морду ближе 🙂", 0);
+      updateHoldUI("Move your face closer 🙂", 0);
       smileHoldStart = 0;
     } else {
       const smiling = lastJoy >= 20;
 
       if (!smiling) {
         smileHoldStart = 0;
-        updateHoldUI("Улыбнись 😄 (держи 14... секунд конечно не дней же)", 0);
+        updateHoldUI("Smile 😄 (hold for 14... seconds, not days obviously)", 0);
       } else {
         if (!smileHoldStart) smileHoldStart = now;
         const elapsed = now - smileHoldStart;
-        updateHoldUI("Держи улыбку 😄", (elapsed / HOLD_SMILE_MS) * 100);
+        updateHoldUI("Hold the smile 😄", (elapsed / HOLD_SMILE_MS) * 100);
 
         if (elapsed >= HOLD_SMILE_MS) {
           locked = true;
@@ -763,10 +796,10 @@ function renderAndLogic() {
         if (t !== holdGesture) {
           holdGesture = t;
           holdStart = now;
-          updateHoldUI(t === "UP" ? "Держи 👍" : "Держи 👎", 0);
+          updateHoldUI(t === "UP" ? "Hold 👍" : "Hold 👎", 0);
         } else {
           const elapsed = now - holdStart;
-          updateHoldUI(t === "UP" ? "Держи 👍" : "Держи 👎", (elapsed / HOLD_THUMB_MS) * 100);
+          updateHoldUI(t === "UP" ? "Hold 👍" : "Hold 👎", (elapsed / HOLD_THUMB_MS) * 100);
 
           if (elapsed >= HOLD_THUMB_MS) {
             locked = true;
@@ -778,7 +811,7 @@ function renderAndLogic() {
               startFinalHearts({ withSnap: false });
             } else {
               const img180 = snapshot180();
-              if (snapText) snapText.textContent = "Низ от верха не отличить не в силах что-ли";
+              if (snapText) snapText.textContent = "Can't tell top from bottom, huh?";
               showSnap(img180);
 
               scene = Scene.YAY;
@@ -833,6 +866,7 @@ async function startCameraAndPipeline() {
     }
     requestAnimationFrame(loop);
   }
+
   loop();
 }
 
@@ -861,8 +895,9 @@ startBtn?.addEventListener("click", async () => {
   locked = false;
 
   startFloaters();
+
   if (startBtn) startBtn.disabled = true;
-  if (overlayText) overlayText.textContent = "Загрузка... пачакай чуток :P";
+  if (overlayText) overlayText.textContent = "Loading... wait a bit :P";
 
   try {
     await startCameraAndPipeline();
@@ -884,7 +919,7 @@ startBtn?.addEventListener("click", async () => {
   } catch (e) {
     if (startBtn) startBtn.disabled = false;
     if (overlayText) overlayText.textContent =
-      "Не получилось запустить камеру 😭 Проверь разрешения браузера.";
+      "Could not start the camera 😭 Check browser permissions.";
     started = false;
   }
 });
