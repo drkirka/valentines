@@ -1,51 +1,99 @@
- <div class="wrap">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Valentines</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="wrap">
+
   <!-- фон-->
   <div class="bg" aria-hidden="true"></div>
+
   <!--старт /лоадинг -->
   <div id="startOverlay" class="overlay">
     <div class="overlayCard">
-      <div class="overlayTitle">🐱💘 Валентин валентинович</div>
+
+      <div class="overlayTitle">
+        🐱💘 Valentine Valentinovich
+      </div>
+
       <div id="overlayText" class="overlayText">
-        Старррртуем!!!✨
+        Staaarting!!! ✨
       </div>
-      <button id="startBtn" class="startBtn">Start 💖</button>
+
+      <button id="startBtn" class="startBtn">
+        Start 💖
+      </button>
+
       <div class="overlayHint">
-        Не бойся, фотки не хранятся...к сожалению
+        Don't worry, photos are not saved... unfortunately
       </div>
+
     </div>
   </div>
+
   <!-- видео+канвас -->
   <div class="videoBox">
     <video id="video" playsinline muted></video>
     <canvas id="canvas"></canvas>
   </div>
+
   <!-- UI-->
   <div class="ui">
-    <div id="title">Отсчёт назад!</div>
-    <div id="subtitle">Покажи рукой число</div>
-    <div id="bigNumber">5</div>
+
+    <div id="title">
+      Countdown!
+    </div>
+
+    <div id="subtitle">
+      Show the number with your hand
+    </div>
+
+    <div id="bigNumber">
+      5
+    </div>
+
     <!--progress bar-->
     <div id="hold" class="hold hidden">
-      <div class="holdLabel" id="holdLabel">Держи…</div>
+
+      <div class="holdLabel" id="holdLabel">
+        Hold…
+      </div>
+
       <div class="bar">
         <div class="fill" id="holdFill"></div>
       </div>
+
     </div>
-    <!-- карточка-->
+    <!--карточка-->
     <div id="card" class="card hidden">
       <img id="cardImg" alt="" />
       <div id="cardText"></div>
     </div>
-    <!-- thumbs down snapsho-->
+    <!-- thumbs down snapshot-->
     <div id="snapWrap" class="hidden">
       <div id="snapText" class="snapText">
-        перепутал координатную систему
+        confused the coordinate system
       </div>
       <img id="snapImg" alt="snapshot" />
     </div>
   </div>
 </div>
+
 <!-- MediaPipe -->
 <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.min.js"></script>
+
+<!-- JS -->
+<script src="script.js"></script>
+
+</body>
+</html>
