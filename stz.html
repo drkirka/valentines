@@ -1,0 +1,51 @@
+ <div class="wrap">
+  <!-- фон-->
+  <div class="bg" aria-hidden="true"></div>
+  <!--старт /лоадинг -->
+  <div id="startOverlay" class="overlay">
+    <div class="overlayCard">
+      <div class="overlayTitle">🐱💘 Валентин валентинович</div>
+      <div id="overlayText" class="overlayText">
+        Старррртуем!!!✨
+      </div>
+      <button id="startBtn" class="startBtn">Start 💖</button>
+      <div class="overlayHint">
+        Не бойся, фотки не хранятся...к сожалению
+      </div>
+    </div>
+  </div>
+  <!-- видео+канвас -->
+  <div class="videoBox">
+    <video id="video" playsinline muted></video>
+    <canvas id="canvas"></canvas>
+  </div>
+  <!-- UI-->
+  <div class="ui">
+    <div id="title">Отсчёт назад!</div>
+    <div id="subtitle">Покажи рукой число</div>
+    <div id="bigNumber">5</div>
+    <!--progress bar-->
+    <div id="hold" class="hold hidden">
+      <div class="holdLabel" id="holdLabel">Держи…</div>
+      <div class="bar">
+        <div class="fill" id="holdFill"></div>
+      </div>
+    </div>
+    <!-- карточка-->
+    <div id="card" class="card hidden">
+      <img id="cardImg" alt="" />
+      <div id="cardText"></div>
+    </div>
+    <!-- thumbs down snapsho-->
+    <div id="snapWrap" class="hidden">
+      <div id="snapText" class="snapText">
+        перепутал координатную систему
+      </div>
+      <img id="snapImg" alt="snapshot" />
+    </div>
+  </div>
+</div>
+<!-- MediaPipe -->
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.min.js"></script>
