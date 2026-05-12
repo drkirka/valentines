@@ -2,98 +2,92 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>Valentines</title>
 
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
 
-<div class="wrap">
-
-  <!-- фон-->
   <div class="bg" aria-hidden="true"></div>
 
-  <!--старт /лоадинг -->
-  <div id="startOverlay" class="overlay">
-    <div class="overlayCard">
+  <div class="wrap">
 
-      <div class="overlayTitle">
-        🐱💘 Valentine Valentinovich
+    <div id="startOverlay" class="overlay">
+      <div class="overlayCard">
+
+        <div class="overlayTitle">
+          🐱💘 Valentine Valentinovich
+        </div>
+
+        <div id="overlayText" class="overlayText">
+          Staaarting!!! ✨
+        </div>
+
+        <button id="startBtn" class="startBtn" type="button">
+          Start 💖
+        </button>
+
+        <div class="overlayHint">
+          Don't worry, photos are not saved... unfortunately
+        </div>
+
+      </div>
+    </div>
+
+    <div class="videoBox">
+      <video id="video" playsinline webkit-playsinline muted></video>
+      <canvas id="canvas"></canvas>
+    </div>
+
+    <div class="ui">
+
+      <div id="title">
+        Countdown!
       </div>
 
-      <div id="overlayText" class="overlayText">
-        Staaarting!!! ✨
+      <div id="subtitle">
+        Show the number with your hand
       </div>
 
-      <button id="startBtn" class="startBtn">
-        Start 💖
-      </button>
+      <div id="bigNumber">
+        5
+      </div>
 
-      <div class="overlayHint">
-        Don't worry, photos are not saved... unfortunately
+      <div id="hold" class="hold hidden">
+        <div id="holdLabel" class="holdLabel">
+          Hold…
+        </div>
+
+        <div class="bar">
+          <div id="holdFill" class="fill"></div>
+        </div>
+      </div>
+
+      <div id="card" class="card hidden">
+        <img id="cardImg" alt="" />
+        <div id="cardText"></div>
+      </div>
+
+      <div id="snapWrap" class="hidden">
+        <div id="snapText" class="snapText">
+          confused the coordinate system
+        </div>
+
+        <img id="snapImg" alt="snapshot" />
       </div>
 
     </div>
   </div>
 
-  <!-- видео+канвас -->
-  <div class="videoBox">
-    <video id="video" playsinline muted></video>
-    <canvas id="canvas"></canvas>
-  </div>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js"></script>
 
-  <!-- UI-->
-  <div class="ui">
-
-    <div id="title">
-      Countdown!
-    </div>
-
-    <div id="subtitle">
-      Show the number with your hand
-    </div>
-
-    <div id="bigNumber">
-      5
-    </div>
-
-    <!--progress bar-->
-    <div id="hold" class="hold hidden">
-
-      <div class="holdLabel" id="holdLabel">
-        Hold…
-      </div>
-
-      <div class="bar">
-        <div class="fill" id="holdFill"></div>
-      </div>
-
-    </div>
-    <!--карточка-->
-    <div id="card" class="card hidden">
-      <img id="cardImg" alt="" />
-      <div id="cardText"></div>
-    </div>
-    <!-- thumbs down snapshot-->
-    <div id="snapWrap" class="hidden">
-      <div id="snapText" class="snapText">
-        confused the coordinate system
-      </div>
-      <img id="snapImg" alt="snapshot" />
-    </div>
-  </div>
-</div>
-
-<!-- MediaPipe -->
-<script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.min.js"></script>
-
-<!-- JS -->
-<script src="script.js"></script>
+  <script src="script.js"></script>
 
 </body>
 </html>
