@@ -1,4 +1,4 @@
-# valentines
+
 # Valentine Interactive Vision Web App 💘
 
 Small interactive browser project using webcam face tracking, hand gestures, and animated UI effects.
@@ -7,7 +7,7 @@ Small interactive browser project using webcam face tracking, hand gestures, and
 
 ## Features
 
-- Webcam face and hand tracking
+- Webcam face/hand tracking
 - Smile detection
 - Finger counting and gesture recognition
 - Animated UI effects
@@ -26,16 +26,6 @@ Small interactive browser project using webcam face tracking, hand gestures, and
 - MediaPipe Hands
 - MediaPipe FaceMesh
 - Canvas API
----
-## Project Structure
-```text
-valentines/
-│
-├── README.md
-├── index.html
-├── style.css
-└── script.js
-```
 ---
 
 ## How to Run
